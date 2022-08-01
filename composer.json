@@ -1,0 +1,32 @@
+{
+    "name": "shali/phpwife",
+    "description": "Complementary with PHP",
+    "type": "library",
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "php": "<8.0",
+        "phpunit/phpunit": "^4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shali\\": "src/Shali/"
+        },
+        "files": [
+            "src/Shali/PHPWife/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Shali\\": "tests/Shali/"
+        }
+    },
+    "authors": [
+        {
+            "name": "shali",
+            "email": "shali@gmail.com"
+        }
+    ]
+}
