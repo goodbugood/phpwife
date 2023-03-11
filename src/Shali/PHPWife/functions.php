@@ -60,3 +60,21 @@ if (!function_exists('equals')) {
         return $var1 == $var2;
     }
 }
+
+/**
+ * 转义csv字段中包含半角逗号错位问题
+ */
+if (!function_exists('escape_commas_of_csv')) {
+    function escape_commas_of_csv($str)
+    {
+        if (false !== strpos($str, ',')) {
+            if (false !== strpos($str, '"')) {
+                // 解决包裹双引号前存在双引号不匹配的问题
+                $str = str_replace('"', '""', $str);
+            }
+            // 转义半角逗号
+            $str = sprintf('"%s"', $str);
+        }
+        return $str;
+    }
+}

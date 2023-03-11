@@ -4,6 +4,8 @@ namespace Tests\Shali\PHPWife;
 
 use PHPUnit\Framework\TestCase;
 
+use function escape_commas_of_csv;
+
 class functionsTest extends TestCase
 {
     /**
@@ -82,5 +84,21 @@ class functionsTest extends TestCase
         //
         self::assertTrue(0 == "\t");
         self::assertTrue(equals(0, "\t"));
+    }
+
+    /**
+     * @test 测试csv字段内容包含英文半角逗号转义问题
+     */
+    public function escape_commas_of_csv()
+    {
+        // 规格字段
+        // 转义原则：
+        // 1. 含有英文半角逗号的，整个字段用双引号包裹
+        self::assertSame('"箱,12瓶/箱"', escape_commas_of_csv('箱,12瓶/箱'));
+        // 2. 含有英文半角逗号的同时含有半角双引号的，每个引号用1个引号进行转义
+        self::assertSame('箱"12瓶/箱', escape_commas_of_csv('箱"12瓶/箱'));
+        self::assertSame('"箱,""12瓶/箱"', escape_commas_of_csv('箱,"12瓶/箱'));
+        self::assertSame('"箱,""""12瓶/箱"', escape_commas_of_csv('箱,""12瓶/箱'));
+        self::assertSame('箱，12瓶/箱', escape_commas_of_csv('箱，12瓶/箱'));
     }
 }
